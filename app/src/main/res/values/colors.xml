@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1f1f1f</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="bg">#000000</color>>
+<!--Зададим собственные цвета для четных/нечетных чисел-->
+    <color name="colorEven">#3282ad</color>
+    <color name="colorOdd">#b3325d</color>
+</resources>
