@@ -1,5 +1,6 @@
 package com.example.numberslist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -9,9 +10,11 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     // Фрагмент списка чисел
-    Fragment listFragment;
+    private Fragment listFragment;
     // Фрагмент конкретного числа
-    Fragment currentNumberFragment;
+    private Fragment currentNumberFragment;
+    // Имя фрагмента листа
+    private final static String listFragmentName = "listFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +27,8 @@ public class MainActivity extends AppCompatActivity {
     // Вызов фрагмента списка
     public void setListFragment(Bundle savedInstanceState) {
         // Если сессия новая
+
         if (savedInstanceState == null) {
-
-            Log.d("[INF]", "InstanceState == null");
-
             // Создаем новый фрагмент
             listFragment = new ListFragment();
 
@@ -39,19 +40,13 @@ public class MainActivity extends AppCompatActivity {
                     // Заменяем фрагмент, который находится в fragment_container
                     // на listFragment Фрагмент
                     .replace(R.id.fragment_container, listFragment)
-                    // Запоминам транзакцию после ее коммита, таким образом восстанавливаем
-                    // состояние приложения после смерти в фоне
-                    .addToBackStack(null)
                     // Коммитим изменения
                     .commit();
         // Иначе, открываем список чисел
         } else {
-            Log.d("[INF]", "InstanceState != null");
-
             listFragment = getSupportFragmentManager()
-                    .getFragment(savedInstanceState, "listFragment");
+                    .getFragment(savedInstanceState, listFragmentName);
 
-            Log.d("[INF]", "Success getting fragment");
         }
     }
 
@@ -68,7 +63,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, currentNumberFragment)
+                // Запоминам транзакцию после ее коммита, таким образом восстанавливаем
+                // состояние приложения после смерти в фоне
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().
+                putFragment(outState, listFragmentName, listFragment);
     }
 }

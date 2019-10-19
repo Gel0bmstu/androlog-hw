@@ -5,6 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="bg">#000000</color>>
 <!--Зададим собственные цвета для четных/нечетных чисел-->
-    <color name="colorEven">#3282ad</color>
-    <color name="colorOdd">#b3325d</color>
+    <color name="colorOdd">#3282ad</color>
+    <color name="colorEven">#b3325d</color>
 </resources>
